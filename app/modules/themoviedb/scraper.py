@@ -170,6 +170,12 @@ class TmdbScraper:
             DomUtils.add_node(doc, root, "genre", genre.get("name") or "")
         # 评分
         DomUtils.add_node(doc, root, "rating", mediainfo.vote_average or "0")
+        # 分级
+        DomUtils.add_node(doc, root, "mpaa", mediainfo.mpaa or "")
+        # 合集信息  
+        if mediainfo.tmdb_id and mediainfo.collection:
+            xcollection = DomUtils.add_node(doc, root, "set", mediainfo.collection.get("name") or "")
+            xcollection.setAttribute("tmdbid", str(mediainfo.collection.get("id") or ""))
 
         return doc
 

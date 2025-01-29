@@ -260,6 +260,10 @@ class MediaInfo:
     runtime: int = None
     # 下一集
     next_episode_to_air: dict = field(default_factory=dict)
+    # 分级
+    mpaa: str = None
+    # 合集信息
+    # collection
 
     def __post_init__(self):
         # 设置媒体信息
@@ -462,6 +466,8 @@ class MediaInfo:
         for key, value in info.items():
             if hasattr(self, key) and not getattr(self, key):
                 setattr(self, key, value)
+        # 分级
+        self.mpaa = info.get('certification')
 
     def set_douban_info(self, info: dict):
         """
